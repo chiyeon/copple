@@ -1,0 +1,8 @@
+h1, h2, h3, a, p, li {
+    font-family: sans-serif;
+}
+
+.site {
+    max-width: 700px;
+    margin: auto;
+}

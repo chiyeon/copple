@@ -39,6 +39,10 @@ const build_index = async (site) => {
     print("Building index")
     let new_index_html = await load_template("public/index.html", { site })
     await fs.writeFileSync("build/index.html", new_index_html)
+
+    print("Copying stylesheets")
+    await fs.copyFileSync("public/style.css", "build/style.css")
+
     print("Done! Output written to build/")
 }
 
@@ -65,10 +69,12 @@ const build_projects = async () => {
 
 (async () => {
     print("Compiling project")
-    let out = ""
+    let site = ""
 
-    out += await build_about()
-    out += await build_projects()
+    site += await build_about()
+    site += await build_projects()
 
-    await build_index(out)
+    let final_html = await load_template("src/site.html", { site })
+
+    await build_index(final_html)
 })()
